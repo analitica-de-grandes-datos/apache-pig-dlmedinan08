@@ -34,3 +34,35 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+persons = LOAD 'data.csv' USING PigStorage(',') 
+        AS (f1:INT,
+        f2:CHARARRAY,  
+        f3:CHARARRAY,
+        f4:CHARARRAY,
+        f5:CHARARRAY);
+
+dates = FOREACH persons GENERATE ToDate(f4, 'yyyy-MM-dd') AS birthday;
+
+dates_2 = FOREACH dates GENERATE ToString(birthday, 'yyyy-MM-dd') AS full_date, LOWER(ToString(birthday, 'MMM')) AS month, ToString(birthday, 'MM') AS month_2digit, ToString(birthday, 'M') AS month_1digit;
+
+dates_3 = FOREACH dates_2 GENERATE full_date
+                                , REPLACE(month, 'apr', 'abr') AS month
+                                , month_2digit
+                                , month_1digit;
+
+dates_4 = FOREACH dates_3 GENERATE full_date
+                                , REPLACE(month, 'jan', 'ene') AS month
+                                , month_2digit
+                                , month_1digit;
+
+dates_5 = FOREACH dates_4 GENERATE full_date
+                                , REPLACE(month, 'dec', 'dic') AS month
+                                , month_2digit
+                                , month_1digit;
+
+dates_6 = FOREACH dates_5 GENERATE full_date
+                                , REPLACE(month, 'aug', 'ago') AS month
+                                , month_2digit
+                                , month_1digit;
+
+STORE dates_2 INTO 'output' USING PigStorage(',');
