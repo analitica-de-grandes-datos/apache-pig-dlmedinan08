@@ -29,6 +29,4 @@ u = LOAD 'data.csv' USING PigStorage(',')
 
 name = FOREACH u GENERATE INDEXOF(f2, 'ia', 1) AS a_position;
 
---STORE name INTO 'output' USING PigStorage(',');
-
-dump name;
+STORE name INTO 'output' USING PigStorage(',');

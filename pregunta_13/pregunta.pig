@@ -32,4 +32,4 @@ colors_f = FILTER u BY STARTSWITH(f5, 'b');
 
 b_color = FOREACH colors_f GENERATE f5 AS color;
 
-STORE last_names_order INTO 'output' USING PigStorage(',');
+STORE b_color INTO 'output' USING PigStorage(',');

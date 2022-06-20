@@ -65,4 +65,4 @@ dates_6 = FOREACH dates_5 GENERATE full_date
                                 , month_2digit
                                 , month_1digit;
 
-STORE dates_2 INTO 'output' USING PigStorage(',');
+STORE dates_6 INTO 'output' USING PigStorage(',');

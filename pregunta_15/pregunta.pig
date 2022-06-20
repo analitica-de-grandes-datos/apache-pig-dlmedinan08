@@ -30,5 +30,6 @@ name_color = FILTER u BY f5 == 'blue' AND STARTSWITH(f2, 'Z');
 
 name_color_2 = FOREACH name_color GENERATE f2 AS firstname, f5 AS color;
 
-STORE name_color_2 INTO 'output' USING PigStorage(',');
+name_color_3 = FOREACH name_color_2 GENERATE CONCAT(firstname, ' ', color);
 
+STORE name_color_2 INTO 'output' USING PigStorage(',');

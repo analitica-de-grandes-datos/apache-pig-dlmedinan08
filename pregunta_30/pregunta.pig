@@ -90,6 +90,4 @@ dates_10 = FOREACH dates_9 GENERATE full_date
                                 , week_day;
 
 
---STORE dates_3 INTO 'output' USING PigStorage(',');
-
-dump dates_10;
+STORE dates_10 INTO 'output' USING PigStorage(',');
