@@ -23,10 +23,8 @@ lines = LOAD 'data.tsv' USING PigStorage('\t')
 
 letters = FOREACH lines GENERATE FLATTEN(f2) AS key1, FLATTEN(f3) AS key2;
 
-letters_keys = FOREACH letters GENERATE key1, TOKENIZE(key2, ',') AS key2_b;
+grouped = GROUP letters BY (key1, key2);
 
-grouped = GROUP letters_keys BY key1 AS key1_1;
+wordcount = FOREACH grouped GENERATE group, COUNT(letters);
 
-wordcount = FOREACH grouped GENERATE group, COUNT(key1_1);
-
-dump wordcount
+STORE wordcount INTO 'output' USING PigStorage(',');
