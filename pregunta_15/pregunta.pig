@@ -19,4 +19,17 @@ evaluación, pig sera eejcutado ejecutado en modo local:
 $ pig -x local -f pregunta.pig
 
 */
+u = LOAD 'data.csv' USING PigStorage(',') 
+        AS (f1:INT,
+        f2:CHARARRAY,  
+        f3:CHARARRAY,
+        f4:CHARARRAY,
+        f5:CHARARRAY);
 
+name_color = FILTER u BY f5 == 'blue' AND STARTSWITH(f2, 'Z');
+
+name_color_2 = FOREACH name_color GENERATE f2 AS firstname, f5 AS color;
+
+name_color_3 = FOREACH name_color_2 GENERATE CONCAT(firstname, ' ', color);
+
+STORE name_color_3 INTO 'output' USING PigStorage(',');
