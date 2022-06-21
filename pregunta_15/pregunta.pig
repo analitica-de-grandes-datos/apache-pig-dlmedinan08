@@ -32,4 +32,4 @@ name_color_2 = FOREACH name_color GENERATE f2 AS firstname, f5 AS color;
 
 name_color_3 = FOREACH name_color_2 GENERATE CONCAT(firstname, ' ', color);
 
-STORE name_color_2 INTO 'output' USING PigStorage(',');
+STORE name_color_3 INTO 'output' USING PigStorage(',');
